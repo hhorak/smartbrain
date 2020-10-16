@@ -1,0 +1,20 @@
+---
+- name: Check if NetworkManager and Dnsmasq are installed
+  yum: name={{ item }} state=present
+  with_items:
+   - NetworkManager
+   - NetworkManager-wifi
+   - dnsmasq
+   - chrony
+
+- name: Turn on the wi-fi
+  command: nmcli radio wifi on
+
+- name: Set up the wi-fi network
+  command: nmcli d wifi connect {{ wlan_ap_ssid }} password {{ wlan_ap_pass }}
+
+- name: Start the chrony service
+  service: name=chronyd state=started enabled=yes
+
+- name: Enable and start Dnsmaq
+  service: name=dnsmasq state=started enabled=yes

@@ -1,0 +1,3 @@
+# copy this file to hosts
+[servername]
+servername ansible_become=yes ansible_user=root ansible_host=<add-server-ip>
